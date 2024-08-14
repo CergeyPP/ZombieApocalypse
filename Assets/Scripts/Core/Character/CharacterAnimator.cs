@@ -91,7 +91,7 @@ public class CharacterAnimator : MonoBehaviour
         _animator.SetTrigger(_hitTrigID);
     }
 
-    protected virtual void OnDied(IDamagable dead)
+    protected virtual void OnDied(GameObject dead)
     {
         _damageParticlePool.Clear();
         MonoBehaviour attack = GetComponent<IAttackProvider>() as MonoBehaviour;

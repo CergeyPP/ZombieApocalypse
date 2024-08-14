@@ -9,7 +9,7 @@ public interface IDamagable
 {
     public event Action<float, float, GameObject> Damaged;
     public event Action<float, float, GameObject> Healed;
-    public event Action<IDamagable> Died;
+    public event Action<GameObject> Died;
 
     public void RegisterDamage(float dmg, GameObject causer);
     public void Heal(float heal, GameObject causer);

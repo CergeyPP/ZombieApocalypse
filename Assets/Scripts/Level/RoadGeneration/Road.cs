@@ -60,6 +60,7 @@ public class Road : MonoBehaviour
             Destroy(item.gameObject);
         }
         _buildings = null;
-        Destroy(_props.gameObject);
+        if (_props != null)
+            Destroy(_props.gameObject);
     }
 }

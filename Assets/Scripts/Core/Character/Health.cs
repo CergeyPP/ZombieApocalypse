@@ -11,7 +11,7 @@ public class Health : MonoBehaviour, IDamagable
 
     public event Action<float, float, GameObject> Damaged;
     public event Action<float, float, GameObject> Healed;
-    public event Action<IDamagable> Died;
+    public event Action<GameObject> Died;
 
     public bool IsDead => _health == 0;
     public float HP => _health;
@@ -29,7 +29,7 @@ public class Health : MonoBehaviour, IDamagable
 
         Damaged?.Invoke(damage, _health, causer);
         if (IsDead)
-            Died?.Invoke(this);
+            Died?.Invoke(gameObject);
     }
 
     public void Heal(float heal, GameObject causer)

@@ -77,12 +77,11 @@ public class EnemyDetector : MonoBehaviour
         }
     }
 
-    private void OnEnemyDied(IDamagable dead)
+    private void OnEnemyDied(GameObject dead)
     {
         foreach (var enemy in _enemies)
         {
-            IDamagable damagable = enemy.GetComponent<IDamagable>();
-            if (dead == damagable)
+            if (dead == enemy.gameObject)
             {
                 _enemies.Remove(enemy);
                 if (enemy == _closestEnemy)

@@ -53,7 +53,7 @@ public class Character : MonoBehaviour
 
     public event Action<float, float, GameObject> Damaged;
     public event Action<float, float, GameObject> Healed;
-    public event Action<IDamagable> Died;
+    public event Action<GameObject> Died;
 
     private void OnDamaged(float dmg, float hp, GameObject causer)
     {
@@ -63,21 +63,24 @@ public class Character : MonoBehaviour
         if (!_movementProvider.enabled)
             _movementProvider.enabled = true;
     }
-    private void OnDied(IDamagable dead)
+    private void OnDied(GameObject dead)
     {
-        cc.enabled = false;
-        enabled = false;
-        _movementController = null;
+        if (dead == gameObject)
+        {
+            cc.enabled = false;
+            enabled = false;
+            _movementController = null;
 
-        MonoBehaviour attackProvider = GetComponent<IAttackProvider>() as MonoBehaviour;
-        if (attackProvider != null)
-            attackProvider.enabled = false;
-        MonoBehaviour movementProvider = GetComponent<IMovementProvider>() as MonoBehaviour;
-        if (movementProvider != null)
-            movementProvider.enabled = false;
+            MonoBehaviour attackProvider = GetComponent<IAttackProvider>() as MonoBehaviour;
+            if (attackProvider != null)
+                attackProvider.enabled = false;
+            MonoBehaviour movementProvider = GetComponent<IMovementProvider>() as MonoBehaviour;
+            if (movementProvider != null)
+                movementProvider.enabled = false;
 
-        StartCoroutine(DeathDelay(5));
-        Died?.Invoke(_health);
+            StartCoroutine(DeathDelay(5));
+            Died?.Invoke(dead);
+        }
     }
     private void OnHealed(float heal, float hp, GameObject causer)
     {

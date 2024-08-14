@@ -44,7 +44,7 @@ public class PlayerAnimator : CharacterAnimator
         _weaponry.WeaponChanged -= OnWeaponChanged;
     }
 
-    protected override void OnDied(IDamagable dead) 
+    protected override void OnDied(GameObject dead) 
     {
         DeactivateAllLayers();
         base.OnDied(dead);

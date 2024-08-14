@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e65d243723fd041bb301b249819603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponToEquip: {fileID: 8032448423517439710, guid: bc735fa41ede3cb42a5da906676fe082,
+  _weaponToEquip: {fileID: 4964527917730399967, guid: 26fe406481ee708499deaa3c4f764873,
     type: 3}
   _gunSlot: {fileID: 5238130634679929624}
   _meleeSlot: {fileID: 2383129467110533178}

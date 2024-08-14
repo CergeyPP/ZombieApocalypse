@@ -35,6 +35,7 @@ public class PropsArrangement : MonoBehaviour
             Character basicEnemy = Instantiate(_basicEnemy, worldPosition, Quaternion.identity);
             basicEnemy.GetComponent<IMovementProvider>().enabled = false;
             _genEnemies.Add(basicEnemy);
+            basicEnemy.Died += OnEnemyDied;
         }
     }
 
@@ -45,5 +46,10 @@ public class PropsArrangement : MonoBehaviour
             item.GetComponent<IMovementProvider>().enabled = true;
         }
         _collider.enabled = false;
+    }
+
+    private void OnEnemyDied(GameObject died)
+    {
+        _genEnemies.Remove(died.GetComponent<Character>());
     }
 }

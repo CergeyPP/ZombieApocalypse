@@ -59,9 +59,7 @@ public class LevelGenerator : MonoBehaviour
     {
         GenerateLevel();
         _navMesh.BuildNavMesh();
-        _navMesh.UpdateNavMesh(_navMesh.navMeshData);
         _genPlayerSystem = Instantiate(_playerSystem, _generationStartTransform.position, _generationStartTransform.rotation);
-        InstantiateRoadEnemies();
     }
     public void ClearLevel()
     {
@@ -71,6 +69,7 @@ public class LevelGenerator : MonoBehaviour
         }
         _generatedRoads.Clear();
         Destroy(_genPlayerSystem);
+        _navMesh.BuildNavMesh();
     }
 
     public IEnumerable<Character> GetAllEnemies()
@@ -91,7 +90,7 @@ public class LevelGenerator : MonoBehaviour
         ClearLevel();
     }
 
-    private void InstantiateRoadEnemies()
+    public void InstantiateRoadEnemies()
     {
         foreach (var item in _generatedRoads)
         {

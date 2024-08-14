@@ -22,18 +22,29 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartLevel();
+        StartCoroutine(StartLevel());
     }
 
-    public void StartLevel()
+    public IEnumerator StartLevel()
     {
+        yield return null;
         _pauseMenu.gameObject.SetActive(false);
         _levelGenerator.StartLevel();
-
+        yield return null;
+        _levelGenerator.InstantiateRoadEnemies();
         _enemies = _levelGenerator.GetAllEnemies().ToList();
+        foreach (var enemy in _enemies)
+        {
+            enemy.Died += OnEnemyDied;
+        }
         _playerCharacter = _levelGenerator.PlayerCharacter;
 
         OnGameStarted?.Invoke();
+    }
+
+    private void OnEnemyDied(GameObject obj)
+    {
+        _enemies.RemoveAll(enemy => { return enemy.gameObject == obj; });
     }
 
     public void RestartLevel()
@@ -47,7 +58,7 @@ public class GameManager : MonoBehaviour
         // other destroys
         //
         Unpause();
-        StartLevel();
+        StartCoroutine(StartLevel());
     }
 
     public void OnPauseButtonClicked()
@@ -61,16 +72,17 @@ public class GameManager : MonoBehaviour
             Pause();
         }
 
-        _isGamePaused = !_isGamePaused;
     }
 
     private void Pause()
     {
+        _isGamePaused = true;
         _pauseMenu.gameObject.SetActive(true);
         Time.timeScale = 0;
     }
     private void Unpause()
     {
+        _isGamePaused = false;
         _pauseMenu.gameObject.SetActive(false);
         Time.timeScale = 1;
     }
