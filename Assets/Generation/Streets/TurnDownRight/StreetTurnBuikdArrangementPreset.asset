@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d1cc704201a47498cf1c6e80fac4f4, type: 3}
+  m_Name: StreetTurnBuikdArrangementPreset
+  m_EditorClassIdentifier: 
+  _arrangements:
+  - {fileID: 2891540959005365895, guid: 5557a62835445cf4baeb6b43f54322ea, type: 3}
+  - {fileID: 3635159215663036508, guid: db765ab5e42debc4ebf790f29aa3c821, type: 3}

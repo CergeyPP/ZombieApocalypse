@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abf730539481ef46af90b1eedd2d734, type: 3}
+  m_Name: StreetTPropsPreset
+  m_EditorClassIdentifier: 
+  _propsPrefab:
+  - {fileID: 5319398873249697694, guid: 7b9963bd03a4c1546ba064b3dfc784ff, type: 3}
+  - {fileID: 5046754460705547695, guid: fb7fd21d9d85b654ebede9e429528ada, type: 3}

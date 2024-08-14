@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d1cc704201a47498cf1c6e80fac4f4, type: 3}
+  m_Name: 4WayBuildingArrangementPreset
+  m_EditorClassIdentifier: 
+  _arrangements:
+  - {fileID: 800461989922714468, guid: 109eb5e8f5762f541bc4d83d6086f767, type: 3}
+  - {fileID: 5462822891124735400, guid: a87698b8d68a05b4da9f84f3af45ada6, type: 3}
+  - {fileID: 1621525062806217808, guid: db0677ea1e637be4a81971b981c29fc0, type: 3}

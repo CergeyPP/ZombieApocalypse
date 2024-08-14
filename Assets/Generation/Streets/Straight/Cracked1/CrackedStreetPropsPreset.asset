@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abf730539481ef46af90b1eedd2d734, type: 3}
+  m_Name: CrackedStreetPropsPreset
+  m_EditorClassIdentifier: 
+  _propsPrefab:
+  - {fileID: 8282142736650395806, guid: 757467d11be45ae42b6390979c2bd476, type: 3}
+  - {fileID: 9208245152795092271, guid: 0ddfde487ca53d446b9622402225deff, type: 3}

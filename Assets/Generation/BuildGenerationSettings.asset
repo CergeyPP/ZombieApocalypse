@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26908e79c12e646458999818d129655c, type: 3}
+  m_Name: BuildGenerationSettings
+  m_EditorClassIdentifier: 
+  _smallTownHouses:
+  - {fileID: 7595514663845218422, guid: 694a5e0427028b8418ddccf09ada77d4, type: 3}
+  - {fileID: 2647370710796703176, guid: bfc8a8b15346bd94dbfa72d397193b0f, type: 3}
+  - {fileID: 4869701867502728166, guid: b9707108f1b40864d9842df9a925d31c, type: 3}
+  - {fileID: 2677060953809110112, guid: ebb5f1eb46d731d41ae61374d78ae95c, type: 3}
+  - {fileID: 4605041554704095730, guid: cf9747fc8d8cebe46b2fa1f6a6cda89d, type: 3}
+  - {fileID: 7625112468059593935, guid: 61735fdabdf4865408edd964b2d869b7, type: 3}
+  - {fileID: 8106340804741107653, guid: c04bb9139bd745c4c985ba080caf4f70, type: 3}
+  - {fileID: 6338661062110196327, guid: 59a7bc61ab2353b4384a8c33093b73fa, type: 3}
+  - {fileID: 1595052119159576455, guid: 58c7c83ccc73b474487228fb49f97b06, type: 3}
+  - {fileID: 1075179418500404919, guid: 0d3cf58565a21004a9d5eef4c111c2b9, type: 3}
+  - {fileID: 4614751281421049863, guid: df4d8f80b26572849ac1721c4e3e0b88, type: 3}
+  - {fileID: 7729897307290006085, guid: f51c2a731c1d8f9439f84c9c34e2b938, type: 3}
+  - {fileID: 8162964085742660038, guid: 0cf39153c928eee44b14ce10ba328f3b, type: 3}
+  _smallUrbanHouses:
+  - {fileID: 831947168710814204, guid: 21c43ef89f013c84e88c4c68d28aa0f8, type: 3}
+  _largeTownHouses:
+  - {fileID: 7538232148791121358, guid: fa8ef12b935e00448a6e7e4d584eaada, type: 3}
+  - {fileID: 5720475789222834193, guid: 0ab1a9a09526dab49913a3631c40aecd, type: 3}
+  - {fileID: 2221278444560548513, guid: a1b667b9d010b05438c793a4f44c30a8, type: 3}
+  _largeUrbanHouses:
+  - {fileID: 7818678556866180215, guid: b84a2d5e1de2b2549be6e2a81a266081, type: 3}
+  _cornerTownHouses:
+  - {fileID: 8701600506525720145, guid: e69205f528e72c34abbf679e5e7f0f0e, type: 3}
+  - {fileID: 6293540415962028730, guid: ac857d9cee013c24594d49514016e28e, type: 3}
+  _cornerUrbanHouses:
+  - {fileID: 5135789726233286243, guid: 5277a8db290f5a94fb6fbd6b2317e701, type: 3}

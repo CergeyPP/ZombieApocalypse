@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abf730539481ef46af90b1eedd2d734, type: 3}
+  m_Name: 4WayPropsPreset
+  m_EditorClassIdentifier: 
+  _propsPrefab:
+  - {fileID: 8534557099041702715, guid: ebc973630ce48834ab0efe6313d5ab5d, type: 3}
+  - {fileID: 2562028078517005528, guid: 9dd6c252db0649a449bd7838cac5a981, type: 3}

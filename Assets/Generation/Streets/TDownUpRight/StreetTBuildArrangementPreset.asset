@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d1cc704201a47498cf1c6e80fac4f4, type: 3}
+  m_Name: StreetTBuildArrangementPreset
+  m_EditorClassIdentifier: 
+  _arrangements:
+  - {fileID: 2653582119425511656, guid: ae8c2f93b6076cd48af515364cbcc6a5, type: 3}
+  - {fileID: 106747199220727240, guid: 20fc100a936df3a4e802c5b78085239f, type: 3}

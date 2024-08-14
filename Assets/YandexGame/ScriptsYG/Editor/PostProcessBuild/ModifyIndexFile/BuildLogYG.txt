@@ -1,0 +1,2 @@
+Build path: C:/Docs/Projects/Unity Projects/Yandex Game/Build
+Build number: 15

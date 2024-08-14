@@ -1,0 +1,113 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class WeaponArsenal : MonoBehaviour, IAttackProvider
+{
+    [SerializeField] private Weapon _weaponToEquip;
+    [SerializeField] private Transform _gunSlot;
+    [SerializeField] private Transform _meleeSlot;
+    [SerializeField] private Transform _raycastPoint;
+    [SerializeField] private EnemyDetector _enemyDetector;
+    [SerializeField] private LayerMask _raycastLayers;
+    [SerializeField] private LayerMask _enemyLayer;
+
+    private Weapon _equippedWeapon;
+
+    private bool _wantToShoot;
+    private bool IsColliderOnEnemyLayer(Collider collider)
+        => ((_enemyLayer >> collider.gameObject.layer) & 1) == 1;
+    private RaycastHit RaycastForward
+    {
+        get
+        {
+            Debug.DrawLine(_raycastPoint.position, _raycastPoint.position + _raycastPoint.forward * 5);
+            RaycastHit info;
+            Physics.Raycast(_raycastPoint.position,
+                _raycastPoint.forward,
+                out info,
+                _equippedWeapon.Config.AttackInfo.Range, //ренж оружия
+                _raycastLayers, QueryTriggerInteraction.Ignore);
+            return info;
+        }
+    }
+
+    public event Action AttackStart;
+    public event Action<Weapon> WeaponChanged;
+    public bool CanAttack() => _equippedWeapon != null && _equippedWeapon.CanAttack;
+    public void StartAttack()
+    {
+        if (!CanAttack()) return;
+        _equippedWeapon.Attack();
+        AttackStart?.Invoke();
+    }
+
+    public void Equip(Weapon weapon)
+    {
+        if (_equippedWeapon != null)
+            _equippedWeapon.Unequip();
+
+        if (weapon != null)
+        {
+            Transform slot;
+            switch(weapon.Config.Type)
+            {
+                case WeaponType.Melee:
+                    slot = _meleeSlot;
+                    break;
+                case WeaponType.Gun:
+                    slot = _gunSlot; 
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            Weapon weaponInstance = Instantiate(weapon, slot);
+            _equippedWeapon = weaponInstance;
+            _enemyDetector.SetDetectionRadius(weaponInstance.Config.AttackInfo.Range);
+            weaponInstance.Equip();
+            WeaponChanged?.Invoke(weaponInstance);
+        }
+        else
+        {
+            _equippedWeapon = null;
+            _enemyDetector.SetDetectionRadius(0);
+            WeaponChanged?.Invoke(null);
+        }
+    }
+
+    private void Start()
+    {
+        Equip(_weaponToEquip);
+    }
+    private void Update()
+    {
+        if (_equippedWeapon == null) return;
+        if (!CanAttack()) return;
+
+        RaycastHit info = RaycastForward;
+        if (info.collider != null && IsColliderOnEnemyLayer(info.collider))
+        {
+            _wantToShoot = true;
+        }
+        else _wantToShoot = false;
+
+        if (_wantToShoot)
+        {
+            StartAttack();
+            _equippedWeapon.DrawEffect(info.point);
+        }
+    }
+
+    public void OnAttackEventTriggered()
+    {
+        RaycastHit info = RaycastForward;
+
+        if (info.collider != null && IsColliderOnEnemyLayer(info.collider))
+        {
+            IDamagable victim = info.collider.GetComponent<IDamagable>();
+            _equippedWeapon.DealDamage(victim, gameObject);
+        }
+    }
+}

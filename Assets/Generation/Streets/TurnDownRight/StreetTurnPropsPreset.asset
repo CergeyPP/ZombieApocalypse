@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abf730539481ef46af90b1eedd2d734, type: 3}
+  m_Name: StreetTurnPropsPreset
+  m_EditorClassIdentifier: 
+  _propsPrefab:
+  - {fileID: 2762219645981255736, guid: 85464fd1ba7515b4ca345773fdd0ed31, type: 3}
+  - {fileID: 1509506743109758493, guid: f29bdf3e467909945baad6c11e3d1dc7, type: 3}
+  - {fileID: 1709052804829802862, guid: 4d8e551bc9208aa4ca96f376fb827524, type: 3}

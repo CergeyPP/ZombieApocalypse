@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb05735c43344da48975c9d1eb73469d, type: 3}
+  m_Name: TestGenerationPreset
+  m_EditorClassIdentifier: 
+  _tileSheet:
+  - _roadVariants:
+    - {fileID: 5352543645210297967, guid: d07aaa1e90987c84cb238bfc22bcc98a, type: 3}
+    - {fileID: 1185196567268431498, guid: a57d32b619007d748a92d6b4fb439278, type: 3}
+    _tileRotation: 0
+    _tileWays: 3
+  - _roadVariants:
+    - {fileID: 5352543645210297967, guid: d07aaa1e90987c84cb238bfc22bcc98a, type: 3}
+    - {fileID: 1185196567268431498, guid: a57d32b619007d748a92d6b4fb439278, type: 3}
+    _tileRotation: 90
+    _tileWays: 12
+  - _roadVariants:
+    - {fileID: 3491901918628666385, guid: e272dd74197827145a582ae21e7c1a45, type: 3}
+    _tileRotation: 0
+    _tileWays: 10
+  - _roadVariants:
+    - {fileID: 3491901918628666385, guid: e272dd74197827145a582ae21e7c1a45, type: 3}
+    _tileRotation: 90
+    _tileWays: 6
+  - _roadVariants:
+    - {fileID: 3491901918628666385, guid: e272dd74197827145a582ae21e7c1a45, type: 3}
+    _tileRotation: 180
+    _tileWays: 5
+  - _roadVariants:
+    - {fileID: 3491901918628666385, guid: e272dd74197827145a582ae21e7c1a45, type: 3}
+    _tileRotation: -90
+    _tileWays: 9
+  - _roadVariants:
+    - {fileID: 3150847281834461187, guid: 46391faa98cfbec468ccfc5ee2f1d711, type: 3}
+    _tileRotation: 0
+    _tileWays: 11
+  - _roadVariants:
+    - {fileID: 3150847281834461187, guid: 46391faa98cfbec468ccfc5ee2f1d711, type: 3}
+    _tileRotation: 90
+    _tileWays: 14
+  - _roadVariants:
+    - {fileID: 3150847281834461187, guid: 46391faa98cfbec468ccfc5ee2f1d711, type: 3}
+    _tileRotation: 180
+    _tileWays: 7
+  - _roadVariants:
+    - {fileID: 3150847281834461187, guid: 46391faa98cfbec468ccfc5ee2f1d711, type: 3}
+    _tileRotation: -90
+    _tileWays: 13
+  - _roadVariants:
+    - {fileID: 4708785611629635387, guid: fce2cb77fd1e40842adf0c75c795f3d7, type: 3}
+    _tileRotation: 0
+    _tileWays: 255
+  - _roadVariants:
+    - {fileID: 8042581248651132735, guid: 16d688c4743b51543bd91bf9cf8db546, type: 3}
+    _tileRotation: 0
+    _tileWays: 2
+  - _roadVariants:
+    - {fileID: 8042581248651132735, guid: 16d688c4743b51543bd91bf9cf8db546, type: 3}
+    _tileRotation: 90
+    _tileWays: 4
+  - _roadVariants:
+    - {fileID: 8042581248651132735, guid: 16d688c4743b51543bd91bf9cf8db546, type: 3}
+    _tileRotation: 180
+    _tileWays: 1
+  - _roadVariants:
+    - {fileID: 8042581248651132735, guid: 16d688c4743b51543bd91bf9cf8db546, type: 3}
+    _tileRotation: -90
+    _tileWays: 8
+  _startTileWays: 1
+  _tileSize: 12
+  _tileCount: 10
