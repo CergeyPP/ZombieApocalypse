@@ -16,10 +16,16 @@ public class HealthView : MonoBehaviour
         _gameManager.OnGameStarted += OnInitLevel;
     }
 
+    public void UpdateBar()
+    {
+        _bar.value = _health.Percentage / 100;
+    }
+
     private void OnInitLevel()
     {
         _health = _gameManager.PlayerCharacter.Health;
         OnEnable();
+        UpdateBar();
     }
     private void OnEnable()
     {
@@ -40,6 +46,6 @@ public class HealthView : MonoBehaviour
 
     private void OnHealthChanged(float delta, float health, GameObject causer)
     {
-        _bar.value = _health.Percentage / 100;
+        UpdateBar();
     }
 }

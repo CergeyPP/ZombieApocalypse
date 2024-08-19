@@ -3,9 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using YG;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("General")]
+    [SerializeField] private YandexGame _ygSingleton;
+    [Header("UI")]
+    [SerializeField] private CanvasGroup _gameUI;
     [SerializeField] private CanvasGroup _pauseMenu;
 
     [Header("Game Options")]
@@ -19,6 +24,7 @@ public class GameManager : MonoBehaviour
     
     private Character _playerCharacter;
     public Character PlayerCharacter => _playerCharacter;
+    public YandexGame YG => _ygSingleton;
 
     private void Start()
     {
@@ -29,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         _pauseMenu.gameObject.SetActive(false);
+        _gameUI.gameObject.SetActive(true);
         _levelGenerator.StartLevel();
         yield return null;
         _levelGenerator.InstantiateRoadEnemies();
@@ -45,6 +52,11 @@ public class GameManager : MonoBehaviour
     private void OnEnemyDied(GameObject obj)
     {
         _enemies.RemoveAll(enemy => { return enemy.gameObject == obj; });
+        Character character = obj.GetComponent<Character>();
+        if (character != null)
+        {
+            //add some money
+        }
     }
 
     public void RestartLevel()
@@ -54,6 +66,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy.gameObject);
         }
+        Destroy(_playerCharacter.gameObject);
         //
         // other destroys
         //
@@ -76,14 +89,17 @@ public class GameManager : MonoBehaviour
 
     private void Pause()
     {
-        _isGamePaused = true;
         _pauseMenu.gameObject.SetActive(true);
+        _gameUI.gameObject.SetActive(false);
         Time.timeScale = 0;
+        _isGamePaused = true;
+
     }
     private void Unpause()
     {
         _isGamePaused = false;
         _pauseMenu.gameObject.SetActive(false);
+        _gameUI.gameObject.SetActive(true);
         Time.timeScale = 1;
     }
 }
