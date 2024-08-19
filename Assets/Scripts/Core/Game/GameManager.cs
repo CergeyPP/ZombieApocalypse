@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Options")]
     [SerializeField] private LevelGenerator _levelGenerator;
 
-    public event Action OnGameStarted;
+    public event Action GameStarted;
 
     bool _isGamePaused = false;
 
@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     private Character _playerCharacter;
     public Character PlayerCharacter => _playerCharacter;
     public YandexGame YG => _ygSingleton;
+
+    private Wallet _inRunWallet;
+
+    public Wallet CurrentRunWallet => _inRunWallet;
 
     private void Start()
     {
@@ -37,6 +41,7 @@ public class GameManager : MonoBehaviour
         _pauseMenu.gameObject.SetActive(false);
         _gameUI.gameObject.SetActive(true);
         _levelGenerator.StartLevel();
+        _inRunWallet = new Wallet();
         yield return null;
         _levelGenerator.InstantiateRoadEnemies();
         _enemies = _levelGenerator.GetAllEnemies().ToList();
@@ -46,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
         _playerCharacter = _levelGenerator.PlayerCharacter;
 
-        OnGameStarted?.Invoke();
+        GameStarted?.Invoke();
     }
 
     private void OnEnemyDied(GameObject obj)
@@ -55,7 +60,7 @@ public class GameManager : MonoBehaviour
         Character character = obj.GetComponent<Character>();
         if (character != null)
         {
-            //add some money
+            _inRunWallet.Add(character.ScoreReward);
         }
     }
 
@@ -72,6 +77,17 @@ public class GameManager : MonoBehaviour
         //
         Unpause();
         StartCoroutine(StartLevel());
+    }
+
+    public void OnLevelEndedSuccessful()
+    {
+        YandexGame.savesData.Wallet.Add(_inRunWallet.Coins);
+        YandexGame.SaveProgress();
+    }
+
+    public void OnGameOver()
+    {
+
     }
 
     public void OnPauseButtonClicked()

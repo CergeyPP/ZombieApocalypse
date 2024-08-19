@@ -13,7 +13,7 @@ public class HealthView : MonoBehaviour
 
     private void Awake()
     {
-        _gameManager.OnGameStarted += OnInitLevel;
+        _gameManager.GameStarted += OnInitLevel;
     }
 
     public void UpdateBar()

@@ -16,6 +16,7 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] private ParticleSystem _damageParticle;
     [SerializeField] private Transform _particlePlayPoint;
     [SerializeField] private float _particleDuration;
+    [SerializeField] private ParticleSystem _deathParticle;
 
     protected IAttackProvider _attackProvider;
     protected Animator _animator;
@@ -42,6 +43,7 @@ public class CharacterAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
         _character = GetComponent<Character>();
         _damageParticlePool = new ObjectPool<ParticleSystem>(CreateDamageParticle);
+        
     }
 
     protected void Start()
@@ -99,6 +101,7 @@ public class CharacterAnimator : MonoBehaviour
         _animator.SetFloat(_speedPropID, 0);
         _animator.SetTrigger(_dieTrigID);
         enabled = false;
+        _deathParticle?.Emit(_character.ScoreReward);
     }
 
     protected void OnAttackPerformed()

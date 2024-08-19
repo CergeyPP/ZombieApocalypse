@@ -1,18 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wallet : MonoBehaviour
+[Serializable]
+public class Wallet
 {
-    // Start is called before the first frame update
-    void Start()
+    private int _coins;
+    public int Coins => _coins;
+    
+    public event Action<int, int> CoinAdded; //1 - coin addition, 2 - result coins
+
+    public void Add(int addCoinCount)
     {
-        
+        _coins += addCoinCount;
+        CoinAdded?.Invoke(addCoinCount, _coins);
     }
 
-    // Update is called once per frame
-    void Update()
+    public Wallet()
     {
-        
+        _coins = 0;
     }
 }

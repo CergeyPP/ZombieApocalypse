@@ -11,7 +11,7 @@ using UnityEngine.TextCore.Text;
 public class Character : MonoBehaviour
 {
     [SerializeField] private MovementSettings _movementSettings;
-    [SerializeField] private float _reward = 0;
+    [SerializeField] private int _reward = 0;
     private IMovementProvider _movementProvider;
     private IAttackProvider _attackProvider;
     private CharacterController cc;
@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
     private Health _health;
     public MovementController MovementController => _movementController;
     public Health Health => _health;
-    public float ScoreReward => _reward;
+    public int ScoreReward => _reward;
 
     private void Awake()
     {
