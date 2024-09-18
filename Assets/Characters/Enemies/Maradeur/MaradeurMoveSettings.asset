@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bbb7f4009c278e40b42ab372b8970de, type: 3}
   m_Name: MaradeurMoveSettings
   m_EditorClassIdentifier: 
-  _maxSpeed: 4
+  _maxSpeed: 1.5
   _angularSpeed: 360

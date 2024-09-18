@@ -9,7 +9,7 @@ public class PlayerMovementProvider : MonoBehaviour, IMovementProvider
 {
     [SerializeField] private EnemyDetector _enemyDetector;
     [SerializeField] private bool _turnTowardsEnemyWhileStand = false;
-
+    
     private PlayerInput _playerInput;
     private Vector3 _movementDirection;
     private float _lookTargetAngle = 0;
@@ -17,6 +17,11 @@ public class PlayerMovementProvider : MonoBehaviour, IMovementProvider
     private void Awake()
     {
         _playerInput = new PlayerInput();
+    }
+
+    private void Start()
+    {
+        _lookTargetAngle = transform.eulerAngles.y;
     }
 
     private void OnEnable()

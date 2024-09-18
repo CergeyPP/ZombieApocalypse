@@ -22,7 +22,22 @@ public struct TileRequirements
 public struct TileSample
 {
     public Vector2Int Position;
-    public TileDesc Tile;
+    public List<TileDesc> Tiles;
+    public TileWaysFlags Ways;
+    public int WaysCount
+    {
+        get
+        {
+            int count = 0;
+            int flags = (int)Ways;
+            while (flags > 0)
+            {
+                count += flags | 1;
+                flags >>= 1;
+            }
+            return count;
+        }
+    }
 }
 
 public class LevelGenerator : MonoBehaviour
@@ -43,6 +58,12 @@ public class LevelGenerator : MonoBehaviour
     private int RemainingTileCount => _generationPreset.TileCount - GeneratedTilesCount;
     private int AvailableTileCount => RemainingTileCount - _tileQueue.Count;
 
+    private Interactable _endLevelTrigger;
+    public Interactable EndLevelTrigger => _endLevelTrigger;
+    private List<Interactable> _chests;
+    private List<Interactable> _medkits;
+    public List<Interactable> Chests => _chests;
+    public List<Interactable> MedKits => _chests;
     private int GetWayCount (TileWaysFlags wayFlags)
     {
         int wayCount = 0;
@@ -57,19 +78,34 @@ public class LevelGenerator : MonoBehaviour
 
     public void StartLevel()
     {
-        GenerateLevel();
         _navMesh.BuildNavMesh();
+        GenerateLevel();
         _genPlayerSystem = Instantiate(_playerSystem, _generationStartTransform.position, _generationStartTransform.rotation);
+    }
+    public void UpdateNavMesh()
+    {
+        _navMesh.UpdateNavMesh(_navMesh.navMeshData);
     }
     public void ClearLevel()
     {
-        foreach (var item in _generatedRoads)
+        if (_genPlayerSystem != null)
         {
-            Destroy(item.gameObject);
+            foreach (var item in _generatedRoads)
+            {
+                Destroy(item.gameObject);
+            }
+            foreach (var item in _medkits)
+            {
+                Destroy(item.gameObject);
+            }
+            foreach (var item in _chests)
+            {
+                Destroy(item.gameObject);
+            }
+            _generatedRoads.Clear();
+            Destroy(_genPlayerSystem);
+            _navMesh.BuildNavMesh();
         }
-        _generatedRoads.Clear();
-        Destroy(_genPlayerSystem);
-        _navMesh.BuildNavMesh();
     }
 
     public IEnumerable<Character> GetAllEnemies()
@@ -98,14 +134,19 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    private int chestCount => _chests.Count;
+    private int medkitCount => _medkits.Count;
+
     private void GenerateLevel()
     {
+        _chests = new List<Interactable>();
+        _medkits = new List<Interactable>();
         _generatedRoads = new List<Road>();
-        _tileReqsMap = new TileRequirements[_generationPreset.TileCount * 2, _generationPreset.TileCount * 2];
+        _tileReqsMap = new TileRequirements[_generationPreset.TileCount * 2 + 1, _generationPreset.TileCount * 2 + 1];
         _tileQueue = new Queue<Vector2Int>();
         TileRequirements startTileReqs = new TileRequirements();
-        startTileReqs.NeedWays = _generationPreset.StartTileWays;
-        startTileReqs.ExcludedWays = TileWaysFlags.All ^ _generationPreset.StartTileWays;
+        startTileReqs.NeedWays = _generationPreset.StartTile.TileWays;
+        startTileReqs.ExcludedWays = TileWaysFlags.All ^ _generationPreset.StartTile.TileWays;
         Vector2Int startTilePos = Vector2Int.one * _generationPreset.TileCount;
         _tileQueue.Enqueue(startTilePos);
         _tileReqsMap[startTilePos.x, startTilePos.y] = startTileReqs;
@@ -114,6 +155,15 @@ public class LevelGenerator : MonoBehaviour
         GenerateLevelTheme();
 
         InstantiateRoads();
+    }
+
+    private void OnMedkitPickedUp(Interactable medkit, GameObject causer)
+    {
+        _medkits.Remove(medkit);
+    }
+    private void OnChestPickedUp(Interactable chest, GameObject causer)
+    {
+        _chests.Remove(chest);
     }
 
     private void GenerateLevelTheme()
@@ -127,13 +177,14 @@ public class LevelGenerator : MonoBehaviour
             {
                 tileReqs.ExcludedWays |= TileWaysFlags.Down;
             }
-            TileDesc completeTileDesc = CompleteTileDescription(tileReqs);
-            tileReqs.NeedWays = completeTileDesc.TileWays;
+            List<TileDesc> completeTileDescList = CompleteTileDescription(tileReqs).ToList();
+            tileReqs.NeedWays = completeTileDescList[0].TileWays;
             tileReqs.ExcludedWays = TileWaysFlags.All ^ tileReqs.NeedWays;
             tileReqs.IsCompleted = true;
             TileSample sample = new TileSample();
-            sample.Tile = completeTileDesc;
+            sample.Tiles = completeTileDescList;
             sample.Position = tilePosition;
+            sample.Ways = tileReqs.NeedWays;
             _completeTiles.Add(sample);
 
             ValidateUpNeightbour(tilePosition, tileReqs);
@@ -145,53 +196,125 @@ public class LevelGenerator : MonoBehaviour
 
     private void InstantiateRoads()
     {
+        Vector2Int startTilePos = _completeTiles[0].Position;
+        List<TileSample> endPaths = new List<TileSample>();
         foreach(var item in _completeTiles)
         {
             Vector3 roadPosition = _generationStartTransform.position + new Vector3(item.Position.x - _generationPreset.TileCount, 0, item.Position.y - _generationPreset.TileCount) * _generationPreset.TileSize;
+            TileDesc resultTile;
+            if (GetWayCount(item.Ways) == 1 && startTilePos != item.Position)
+            {
+                endPaths.Add(item);
+                continue;
+            }
+            else
+                resultTile = item.Tiles[Random.Range(0, item.Tiles.Count)];
 
-            Road newRoad = Instantiate(item.Tile.RandomRoad, roadPosition, Quaternion.Euler(0, item.Tile.TileRotation, 0));
+            Road newRoad = Instantiate(resultTile.RandomRoad, roadPosition, Quaternion.Euler(0, resultTile.TileRotation, 0));
             _generatedRoads.Add(newRoad);
 
             newRoad.GenerateBuildings();
             newRoad.GenerateProps();
         }
-    }
-    private TileDesc CompleteTileDescription(TileRequirements requirements)
-    {
-         List<TileDesc> possibleTiles = _generationPreset.AllTiles.Where((tileDesc) =>
+
+        TileSample furthest = endPaths.Aggregate((furthest, item) =>
+                (furthest.Position - startTilePos).magnitude > (item.Position - startTilePos).magnitude ? furthest : item);
+        List<TileDesc> furthestEndLevelTiles = furthest.Tiles.Where(tile => { return tile.HasLevelEscape; }).ToList();
+        TileDesc furthestEndLevel = furthestEndLevelTiles[Random.Range(0, furthestEndLevelTiles.Count)];
+        Vector3 endLevelPosition = _generationStartTransform.position + new Vector3(furthest.Position.x - _generationPreset.TileCount, 0, furthest.Position.y - _generationPreset.TileCount) * _generationPreset.TileSize;
+
+        Road endLevelRoad = Instantiate(furthestEndLevel.RandomRoad, endLevelPosition, Quaternion.Euler(0, furthestEndLevel.TileRotation, 0));
+        _generatedRoads.Add(endLevelRoad);
+        endLevelRoad.GenerateBuildings();
+        endLevelRoad.GenerateProps();
+        _endLevelTrigger = endLevelRoad.EndLevelTrigger;
+        _chests.AddRange(endLevelRoad.GenerateChests());
+        _medkits.AddRange(endLevelRoad.GenerateMedkits());
+
+        endPaths.Remove(furthest);
+
+        foreach (var item in endPaths)
+        {
+            Vector3 roadPosition = _generationStartTransform.position + new Vector3(item.Position.x - _generationPreset.TileCount, 0, item.Position.y - _generationPreset.TileCount) * _generationPreset.TileSize;
+            List<TileDesc> endPathTiles = item.Tiles.Where(tile => { return !tile.HasLevelEscape; }).ToList();
+            TileDesc resultTile = endPathTiles[Random.Range(0, endPathTiles.Count)];
+
+            Road newRoad = Instantiate(resultTile.RandomRoad, roadPosition, Quaternion.Euler(0, resultTile.TileRotation, 0));
+            _generatedRoads.Add(newRoad);
+
+            newRoad.GenerateBuildings();
+            newRoad.GenerateProps();
+
+            if (chestCount < _generationPreset.ChestCount)
             {
-                bool isPossible = true;
-                if (requirements.NeedWays != TileWaysFlags.None)
-                {
-                    isPossible = (tileDesc.TileWays & requirements.NeedWays) == requirements.NeedWays;
-                    if (!isPossible) return false;
-                }
-                if (requirements.ExcludedWays != TileWaysFlags.None) 
-                { 
-                    isPossible = (tileDesc.TileWays & requirements.ExcludedWays) == TileWaysFlags.None;
-                }
+                _chests.AddRange(newRoad.GenerateChests());
 
-                if (isPossible)
-                {
-                    //additional conditions
-                    int NeedWayCount = GetWayCount(requirements.NeedWays);
-                    int TileWayCount = GetWayCount(tileDesc.TileWays);
-                    int FreeTileWayCount = TileWayCount - NeedWayCount;
-                    if (FreeTileWayCount < 0)
-                        throw new System.Exception();
+            }
+            else if (medkitCount < _generationPreset.MedkitCount)
+            {
+                _medkits.AddRange(newRoad.GenerateChests());
+            }
+        }
 
-                    if (AvailableTileCount - 1 < FreeTileWayCount)
-                        return false;
+        foreach (var item in _chests)
+        {
+            item.InteractEvent += OnChestPickedUp;
+        }
+        foreach (var item in _medkits)
+        {
+            item.InteractEvent += OnMedkitPickedUp;
+        }
+    }
+    private IEnumerable<TileDesc> CompleteTileDescription(TileRequirements requirements)
+    {
+        if (_completeTiles.Count == 0)
+        {
+            yield return _generationPreset.StartTile;
+            yield break;
+        }
+        else
+        {
+            List<TileDesc> possibleTiles = _generationPreset.AllTiles.Where((tileDesc) =>
+               {
+                   bool isPossible = true;
+                   if (requirements.NeedWays != TileWaysFlags.None)
+                   {
+                       isPossible = (tileDesc.TileWays & requirements.NeedWays) == requirements.NeedWays;
+                       if (!isPossible) return false;
+                   }
+                   if (requirements.ExcludedWays != TileWaysFlags.None)
+                   {
+                       isPossible = (tileDesc.TileWays & requirements.ExcludedWays) == TileWaysFlags.None;
+                   }
 
-                    if (GeneratedTilesCount > 0)
-                        if (FreeTileWayCount == 0 && AvailableTileCount - 1 > 0)
-                            return false;
-                    
-                }
-                return isPossible;
-            }).ToList();
+                   if (isPossible)
+                   {
+                       //additional conditions
+                       int NeedWayCount = GetWayCount(requirements.NeedWays);
+                       int TileWayCount = GetWayCount(tileDesc.TileWays);
+                       int FreeTileWayCount = TileWayCount - NeedWayCount;
+                       if (FreeTileWayCount < 0)
+                           throw new System.Exception();
 
-        return possibleTiles[Random.Range(0, possibleTiles.Count)];
+                       if (AvailableTileCount - 1 < FreeTileWayCount)
+                           return false;
+
+                       if (GeneratedTilesCount > 0)
+                           if (FreeTileWayCount == 0 && AvailableTileCount - 1 > 0)
+                               return false;
+
+                   }
+                   return isPossible;
+               }).ToList();
+
+            TileDesc exampleTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
+
+            TileDesc[] resultTiles = possibleTiles.Where(tile => { return tile.TileWays == exampleTile.TileWays; }).ToArray();
+            foreach (var item in resultTiles)
+            {
+                yield return item; 
+            }
+        }
     }
 
     private void ValidateUpNeightbour(Vector2Int tilePosition, TileRequirements tileRequirements)

@@ -52,6 +52,16 @@ public class Road : MonoBehaviour
             _props.InstantiateEnemies();
     }
 
+    public IEnumerable<Interactable> GenerateMedkits()
+    {
+        return _props.InstantiateMedkits();
+    }
+    public IEnumerable<Interactable> GenerateChests()
+    {
+        return _props.InstantiateChests();
+    }
+    public Interactable EndLevelTrigger => _props.EndLevelTrigger;
+
     public void OnDestroy()
     {
         Destroy(_buildArrangement.gameObject);

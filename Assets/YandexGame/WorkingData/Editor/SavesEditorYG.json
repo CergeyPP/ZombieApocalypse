@@ -1,0 +1,14 @@
+{
+  "idSave": 3,
+  "isFirstSession": false,
+  "language": "en",
+  "promptDone": false,
+  "coins": 955,
+  "purchasedWeapons": [
+    {
+      "id": 0,
+      "level": 1
+    }
+  ],
+  "equippedWeaponID": 0
+}

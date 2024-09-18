@@ -15,3 +15,10 @@ MonoBehaviour:
   _type: 1
   _attack: {fileID: 11400000, guid: 84b71007a565c5a4e86f9f5f8e7eace2, type: 2}
   _effect: {fileID: 825083455609423758, guid: 41237b4b246e3b94fb40fcbfd5dc5871, type: 3}
+  _damageIncreaseByLevel: 1
+  _maxLevel: 10
+  _startUpgradePrice: 0
+  _upgradePriceIncrease: 0
+  _weaponPrefab: {fileID: 4964527917730399967, guid: 26fe406481ee708499deaa3c4f764873,
+    type: 3}
+  _uiIcon: {fileID: 0}

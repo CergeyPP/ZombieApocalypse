@@ -162,9 +162,12 @@ MonoBehaviour:
   - {fileID: 2151441858971486245}
   - {fileID: 2368571001614211352}
   - {fileID: 5639971665658527184}
-  _enemyActivateTriggerLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  _interactables:
+    _endLevelTrigger: {fileID: 0}
+    _medKitPrefab: {fileID: 0}
+    _chestPrefab: {fileID: 0}
+    _medKitPositions: []
+    _chestPositions: []
 --- !u!65 &1912296513336970293
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -184,7 +187,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12, y: 2, z: 12}
+  m_Size: {x: 18, y: 2, z: 18}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &9101511408232963670
 GameObject:

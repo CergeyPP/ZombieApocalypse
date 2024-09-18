@@ -36,6 +36,7 @@ public class AIController : MonoBehaviour, IAttackProvider, IMovementProvider
     private void Start()
     {
         _obstacle.enabled = false;
+        _lookTargetAngle = transform.eulerAngles.y;
     }
 
     private void OnEnable()
@@ -160,5 +161,10 @@ public class AIController : MonoBehaviour, IAttackProvider, IMovementProvider
         {
             StartAttack();
         }
+    }
+
+    private void OnDestroy()
+    {
+        _obstacle.enabled = false;
     }
 }

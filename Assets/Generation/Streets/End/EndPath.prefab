@@ -186,6 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1579723021643465257}
   - component: {fileID: 8042581248651132735}
+  - component: {fileID: 8480277900100420461}
   m_Layer: 0
   m_Name: EndPath
   m_TagString: Untagged
@@ -229,6 +230,27 @@ MonoBehaviour:
   _buildingGenerator: {fileID: 11400000, guid: b1bf7eaffa5ec4d4cb749db0aa9ca921, type: 2}
   _houseArranmegentPreset: {fileID: 11400000, guid: dae868a252e6c924b9e220c2660acabe,
     type: 2}
+--- !u!65 &8480277900100420461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060743147845896340}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 439
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 12, y: 2, z: 12}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &7578033656723733482
 PrefabInstance:
   m_ObjectHideFlags: 0

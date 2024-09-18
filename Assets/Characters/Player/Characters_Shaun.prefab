@@ -1310,6 +1310,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5306997288087146676}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41cb7f158c896ba43b3fa620f876d901,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1694390106880187410}
   m_SourcePrefab: {fileID: 100100000, guid: 41cb7f158c896ba43b3fa620f876d901, type: 3}
 --- !u!4 &4424637325838890609 stripped
 Transform:
@@ -1382,6 +1386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSettings: {fileID: 11400000, guid: 4d80917457f3b2642a0a1508ebd05f4c, type: 2}
+  _reward: 0
 --- !u!95 &3457632083589892752
 Animator:
   serializedVersion: 5
@@ -1415,8 +1420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e65d243723fd041bb301b249819603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponToEquip: {fileID: 4964527917730399967, guid: 26fe406481ee708499deaa3c4f764873,
-    type: 3}
   _gunSlot: {fileID: 5238130634679929624}
   _meleeSlot: {fileID: 2383129467110533178}
   _raycastPoint: {fileID: 1122125473738350630}
@@ -1460,8 +1463,22 @@ MonoBehaviour:
   _damageParticle: {fileID: 19886758, guid: 63c2e786d2ee3ca459842c790fb7239c, type: 3}
   _particlePlayPoint: {fileID: 1122125473738350630}
   _particleDuration: 1
+  _deathParticle: {fileID: 0}
   _weaponry: {fileID: 7158950658679237451}
   _interactProperty: isInteract
   _weaponLocomotionLayer: Weapon
   _meleeWeaponLayer: Slash
   _gunLayer: Recoil
+--- !u!114 &1694390106880187410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188286719903714077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8176289644da41a4da8aa983aea8edcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arsenal: {fileID: 7158950658679237451}

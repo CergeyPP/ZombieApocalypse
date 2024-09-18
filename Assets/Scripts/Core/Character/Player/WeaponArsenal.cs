@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class WeaponArsenal : MonoBehaviour, IAttackProvider
 {
-    [SerializeField] private Weapon _weaponToEquip;
     [SerializeField] private Transform _gunSlot;
     [SerializeField] private Transform _meleeSlot;
     [SerializeField] private Transform _raycastPoint;
@@ -28,7 +27,7 @@ public class WeaponArsenal : MonoBehaviour, IAttackProvider
             Physics.Raycast(_raycastPoint.position,
                 _raycastPoint.forward,
                 out info,
-                _equippedWeapon.Config.AttackInfo.Range, //ренж оружия
+                _equippedWeapon.Stats.range, //ренж оружия
                 _raycastLayers, QueryTriggerInteraction.Ignore);
             return info;
         }
@@ -44,28 +43,32 @@ public class WeaponArsenal : MonoBehaviour, IAttackProvider
         AttackStart?.Invoke();
     }
 
-    public void Equip(Weapon weapon)
+    public void Equip(WeaponConfiguration weapon, int level)
     {
-        if (_equippedWeapon != null)
-            _equippedWeapon.Unequip();
-
+        Weapon prevWeapon = _equippedWeapon;
         if (weapon != null)
         {
+            if (prevWeapon != null && weapon == _equippedWeapon.Config) return;
+            Weapon weaponInstance = weapon.CreateWeapon(level);
+            //= Instantiate(weapon, slot);
             Transform slot;
-            switch(weapon.Config.Type)
+            switch (weapon.Type)
             {
                 case WeaponType.Melee:
                     slot = _meleeSlot;
                     break;
                 case WeaponType.Gun:
-                    slot = _gunSlot; 
+                    slot = _gunSlot;
                     break;
                 default:
                     throw new NotImplementedException();
             }
-            Weapon weaponInstance = Instantiate(weapon, slot);
+            weaponInstance.transform.parent = slot;
+            weaponInstance.transform.localPosition = Vector3.zero;
+            weaponInstance.transform.localRotation = Quaternion.identity;
+            weaponInstance.transform.localScale = Vector3.one;
             _equippedWeapon = weaponInstance;
-            _enemyDetector.SetDetectionRadius(weaponInstance.Config.AttackInfo.Range);
+            _enemyDetector.SetDetectionRadius(weaponInstance.Stats.range);
             weaponInstance.Equip();
             WeaponChanged?.Invoke(weaponInstance);
         }
@@ -75,12 +78,13 @@ public class WeaponArsenal : MonoBehaviour, IAttackProvider
             _enemyDetector.SetDetectionRadius(0);
             WeaponChanged?.Invoke(null);
         }
+        if (prevWeapon != null)
+        {
+            prevWeapon.Unequip();
+            Destroy(prevWeapon.gameObject);
+        }
     }
 
-    private void Start()
-    {
-        Equip(_weaponToEquip);
-    }
     private void Update()
     {
         if (_equippedWeapon == null) return;

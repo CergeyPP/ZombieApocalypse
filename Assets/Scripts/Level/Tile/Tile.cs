@@ -14,14 +14,18 @@ public enum TileWaysFlags : byte
     All = 0xF,
 }
 
+
+
 [Serializable]
 public class TileDesc
 {
     [SerializeField] private List<Road> _roadVariants;
     [SerializeField] private float _tileRotation;
     [SerializeField] private TileWaysFlags _tileWays;
+    [SerializeField] private bool _hasLevelEscape;
 
     public Road RandomRoad => _roadVariants[UnityEngine.Random.Range(0, _roadVariants.Count)];
     public TileWaysFlags TileWays => _tileWays;
     public float TileRotation => _tileRotation;
+    public bool HasLevelEscape => _hasLevelEscape;
 }

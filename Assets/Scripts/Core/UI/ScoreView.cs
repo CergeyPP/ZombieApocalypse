@@ -7,6 +7,7 @@ using YG;
 public class ScoreView : MonoBehaviour
 {
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Text _text;
     [SerializeField] private float _maxTotalUpdateTime;
     [SerializeField] private AnimationCurve _increaseCurve;
@@ -16,26 +17,56 @@ public class ScoreView : MonoBehaviour
 
     private void Awake()
     {
-        _gameManager.GameStarted += OnGameStarted;
+        if (_gameManager != null)
+            _gameManager.GameStarted += OnInit;
+        if (_mainMenu != null)
+            _mainMenu.Opened += OnInit;
     }
 
     private void OnEnable()
     {
         if (_wallet != null)
-            _wallet.CoinAdded += OnScoreChanged;
+        {
+            _wallet.CoinAdded += OnCoinAdded;
+            _wallet.CoinSpent += OnCoinSpent;
+        }
     }
 
     private void OnDisable()
     {
         if (_wallet != null)
-            _wallet.CoinAdded -= OnScoreChanged;
+        {
+            _wallet.CoinAdded -= OnCoinAdded;
+            _wallet.CoinSpent -= OnCoinSpent;
+        }
     }
 
-    private void OnGameStarted()
+    private void OnInit()
     {
-        _wallet = _gameManager.CurrentRunWallet;
+        if (_gameManager != null)
+        {
+            _wallet = _gameManager.CurrentRunWallet;
+            _score = 0;
+        }
+        else if (_mainMenu != null)
+        {
+            _wallet = _mainMenu.CoinWallet;
+            _score = _wallet.Coins;
+        }
+        UpdateScore();
+        StopAllCoroutines();
         if (_wallet != null && enabled)
-            _wallet.CoinAdded += OnScoreChanged;
+            OnEnable();
+    }
+
+    private void OnCoinAdded(int delta, int totalScore)
+    {
+        OnScoreChanged(delta, totalScore);
+    }
+    private void OnCoinSpent(int delta, int totalScore)
+    {
+        delta *= -1;
+        OnScoreChanged(delta, totalScore);
     }
 
     private void OnScoreChanged(int delta, int totalScore)

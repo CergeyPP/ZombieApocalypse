@@ -7,9 +7,12 @@ using UnityEngine;
 public class LevelGenerationPreset : ScriptableObject
 {
     [SerializeField] private List<TileDesc> _tileSheet;
-    [SerializeField] private TileWaysFlags _startTileWays;
     [SerializeField] private float _tileSize = 24;
     [SerializeField] private int _tileCount;
+    [SerializeField] private int _medkitCount;
+    [SerializeField] private int _chestCount;
+
+    [SerializeField] private TileDesc _startTile;
 
     public IEnumerable<TileDesc> AllTiles
     {
@@ -18,7 +21,10 @@ public class LevelGenerationPreset : ScriptableObject
                 yield return item;
         }
     }
-    public TileWaysFlags StartTileWays => _startTileWays;
+    public TileDesc StartTile => _startTile;
     public float TileSize => _tileSize;
     public int TileCount => _tileCount;
+
+    public int MedkitCount => _medkitCount;
+    public int ChestCount => _chestCount;
 }

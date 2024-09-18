@@ -7,6 +7,7 @@ public class PropsArrangement : MonoBehaviour
 {
     [SerializeField] private Character _basicEnemy;
     [SerializeField] private List<Transform> _basicEnemySpawnPositions;
+    [SerializeField] private InteractablePoints _interactables;
 
     private List<Character> _genEnemies;
     public IEnumerable<Character> EnemiesOnRoad
@@ -52,4 +53,16 @@ public class PropsArrangement : MonoBehaviour
     {
         _genEnemies.Remove(died.GetComponent<Character>());
     }
+
+    public IEnumerable<Interactable> InstantiateMedkits()
+    {
+        return _interactables.InstantiateMedkits();
+    }
+
+    public IEnumerable<Interactable> InstantiateChests()
+    {
+        return _interactables.InstantiateChests();
+    }
+
+    public Interactable EndLevelTrigger => _interactables.EndLevelTrigger;
 }

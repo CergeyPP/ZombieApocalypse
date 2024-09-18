@@ -1,2 +1,2 @@
-Build path: C:/Docs/Projects/Unity Projects/zombieapocalypse/Build
-Build number: 17
+Build path: C:/Docs/Projects/Unity Projects/zombieapocalypse/build_18.09.2024
+Build number: 21

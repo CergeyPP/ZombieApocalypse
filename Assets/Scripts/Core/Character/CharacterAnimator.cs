@@ -30,6 +30,7 @@ public class CharacterAnimator : MonoBehaviour
     protected float _prevMoveSpeed = 0;
 
     private ObjectPool<ParticleSystem> _damageParticlePool;
+    private List<ParticleSystem> _activeParticles;
 
     private ParticleSystem CreateDamageParticle()
     {
@@ -38,12 +39,27 @@ public class CharacterAnimator : MonoBehaviour
         return instance;
     }
 
+    private void OnGetParticlesFromPool(ParticleSystem particle)
+    {
+        _activeParticles.Add(particle);
+    }
+    private void OnReleaseParticlesToPool(ParticleSystem particle)
+    {
+        _activeParticles.Remove(particle);
+    }
+    private void OnDestroyParticleFromPool(ParticleSystem particle)
+    {
+        Destroy(particle.gameObject);
+    }
+
     protected void Awake()
     {
         _animator = GetComponent<Animator>();
         _character = GetComponent<Character>();
-        _damageParticlePool = new ObjectPool<ParticleSystem>(CreateDamageParticle);
-        
+        _damageParticlePool = new ObjectPool<ParticleSystem>(CreateDamageParticle, 
+            OnGetParticlesFromPool, OnReleaseParticlesToPool, 
+            OnDestroyParticleFromPool);
+        _activeParticles = new List<ParticleSystem>();
     }
 
     protected void Start()
@@ -86,6 +102,17 @@ public class CharacterAnimator : MonoBehaviour
         _animator.SetFloat(_speedPropID, moveSpeed);
     }
 
+    private void OnDestroy()
+    {
+        _damageParticlePool.Clear();
+        foreach (var particle in _activeParticles)
+        {
+            OnDestroyParticleFromPool(particle);
+        }
+        StopAllCoroutines();
+    }
+
+
     protected void OnHitReact(float dmg, float hp, GameObject causer)
     {
         Vector3 damageDirection = transform.position - causer.transform.position;
@@ -95,7 +122,6 @@ public class CharacterAnimator : MonoBehaviour
 
     protected virtual void OnDied(GameObject dead)
     {
-        _damageParticlePool.Clear();
         MonoBehaviour attack = GetComponent<IAttackProvider>() as MonoBehaviour;
         attack.StopAllCoroutines();
         _animator.SetFloat(_speedPropID, 0);
@@ -120,5 +146,7 @@ public class CharacterAnimator : MonoBehaviour
         yield return new WaitForSeconds(_particleDuration);
         particles.gameObject.SetActive(false);
         _damageParticlePool.Release(particles);
+        if (_damageParticlePool.CountAll == 0)
+            OnDestroyParticleFromPool(particles);
     }
 }

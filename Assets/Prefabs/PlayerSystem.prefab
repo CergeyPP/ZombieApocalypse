@@ -96,12 +96,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Characters_Shaun
       objectReference: {fileID: 0}
-    - target: {fileID: 7158950658679237451, guid: 85c92a97b07fabf44bdadf3a14092196,
-        type: 3}
-      propertyPath: _weaponToEquip
-      value: 
-      objectReference: {fileID: 8032448423517439710, guid: bc735fa41ede3cb42a5da906676fe082,
-        type: 3}
     - target: {fileID: 8180702755379844941, guid: 85c92a97b07fabf44bdadf3a14092196,
         type: 3}
       propertyPath: _decal
