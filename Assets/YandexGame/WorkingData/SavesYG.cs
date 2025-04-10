@@ -26,12 +26,16 @@ namespace YG
         public int equippedWeaponID;
         public float masterVolume;
         public float musicVolume;
+
+        public bool isTutorCompleted;
+
         public SavesYG()
         {
             coins = 0;
             equippedWeaponID = 0;
             masterVolume = 100;
             musicVolume = 100;
+            isTutorCompleted = false;
         }
     }
 }

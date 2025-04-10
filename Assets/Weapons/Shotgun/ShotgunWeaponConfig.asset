@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7211f0b368d855d4eb27ffdebef83853, type: 3}
-  m_Name: PistolWeaponConfig
+  m_Name: ShotgunWeaponConfig
   m_EditorClassIdentifier: 
   _type: 1
   _attack: {fileID: 11400000, guid: 84b71007a565c5a4e86f9f5f8e7eace2, type: 2}
@@ -23,4 +23,4 @@ MonoBehaviour:
   _upgradePriceIncrease: 100
   _weaponPrefab: {fileID: 4964527917730399967, guid: 26fe406481ee708499deaa3c4f764873,
     type: 3}
-  _uiIcon: {fileID: 21300000, guid: 02d84ae040035924d8eb14d49cfb1a6c, type: 3}
+  _uiIcon: {fileID: 21300000, guid: 279db0ea00abd3f49a3883d436e4bb36, type: 3}

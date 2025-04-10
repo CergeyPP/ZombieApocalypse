@@ -28,7 +28,7 @@ MonoBehaviour:
     - {fileID: 3491901918628666385, guid: e272dd74197827145a582ae21e7c1a45, type: 3}
     _tileRotation: 90
     _tileWays: 6
-    _hasLevelEscape: 0
+    _hasLevelEscape: 1
   - _roadVariants:
     - {fileID: 3491901918628666385, guid: e272dd74197827145a582ae21e7c1a45, type: 3}
     _tileRotation: 180

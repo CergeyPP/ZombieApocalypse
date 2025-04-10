@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         _gameOverUI.gameObject.SetActive(false);
         _endLevelUI.gameObject.SetActive(false);
         _gameUI.gameObject.SetActive(true);
+
         _levelGenerator.StartLevel();
         _inRunWallet = new Wallet(0);
         yield return null;
@@ -99,6 +100,8 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelEndedSuccessful()
     {
+        YandexGame.savesData.isTutorCompleted = true;
+        YandexGame.SaveProgress();
         Pause(_endLevelUI);
     }
 

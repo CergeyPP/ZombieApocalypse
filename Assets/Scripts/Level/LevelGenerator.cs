@@ -42,10 +42,13 @@ public struct TileSample
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private LevelGenerationPreset _generationPreset;
+    [SerializeField] private LevelGenerationPreset _mainGenerationPreset;
+    [SerializeField] private LevelGenerationPreset _tutorialGenerationPreset;
     [SerializeField] private Transform _generationStartTransform;
     [SerializeField] private NavMeshSurface _navMesh;
     [SerializeField] private GameObject _playerSystem;
+
+    private LevelGenerationPreset _generationPreset;
 
     private List<Road> _generatedRoads;
     private TileRequirements[,] _tileReqsMap;
@@ -78,6 +81,14 @@ public class LevelGenerator : MonoBehaviour
 
     public void StartLevel()
     {
+        if (YG.YandexGame.savesData.isTutorCompleted)
+        {
+            _generationPreset = _mainGenerationPreset;
+        }
+        else
+        {
+            _generationPreset = _tutorialGenerationPreset;
+        }
         _navMesh.BuildNavMesh();
         GenerateLevel();
         _genPlayerSystem = Instantiate(_playerSystem, _generationStartTransform.position, _generationStartTransform.rotation);

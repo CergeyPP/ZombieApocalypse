@@ -37,10 +37,12 @@ public class PlayerAnimator : CharacterAnimator
 
     protected void OnEnable()
     {
+        base.OnEnable();
         _weaponry.WeaponChanged += OnWeaponChanged;
     }
     protected void OnDisable()
     {
+        base.OnDisable();
         _weaponry.WeaponChanged -= OnWeaponChanged;
     }
 
