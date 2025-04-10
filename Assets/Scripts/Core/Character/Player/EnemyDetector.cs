@@ -73,7 +73,7 @@ public class EnemyDetector : MonoBehaviour
         if (IsColliderOnEnemyLayer(other) && damagable != null)
         {
             _enemies.Remove(other.gameObject);
-            damagable.Died += OnEnemyDied;
+            damagable.Died -= OnEnemyDied;
         }
     }
 

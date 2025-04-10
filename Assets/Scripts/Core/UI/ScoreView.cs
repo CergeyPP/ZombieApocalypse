@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
@@ -7,8 +8,8 @@ using YG;
 public class ScoreView : MonoBehaviour
 {
     [SerializeField] private GameManager _gameManager;
-    [SerializeField] private MainMenu _mainMenu;
-    [SerializeField] private Text _text;
+    [SerializeField] private Inventory _inventory;
+    [SerializeField] private TMP_Text _text;
     [SerializeField] private float _maxTotalUpdateTime;
     [SerializeField] private AnimationCurve _increaseCurve;
     private int _score;
@@ -19,20 +20,18 @@ public class ScoreView : MonoBehaviour
     {
         if (_gameManager != null)
             _gameManager.GameStarted += OnInit;
-        if (_mainMenu != null)
-            _mainMenu.Opened += OnInit;
-    }
-
-    private void OnEnable()
-    {
-        if (_wallet != null)
+        if (_inventory != null)
         {
-            _wallet.CoinAdded += OnCoinAdded;
-            _wallet.CoinSpent += OnCoinSpent;
+            if (_inventory.Wallet != null)
+            {
+                OnInit();
+            }
+            else
+                _inventory.OnInventoryChanged += OnInit;
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (_wallet != null)
         {
@@ -48,15 +47,18 @@ public class ScoreView : MonoBehaviour
             _wallet = _gameManager.CurrentRunWallet;
             _score = 0;
         }
-        else if (_mainMenu != null)
+        else if (_inventory != null)
         {
-            _wallet = _mainMenu.CoinWallet;
+            _wallet = _inventory.Wallet;
             _score = _wallet.Coins;
         }
         UpdateScore();
         StopAllCoroutines();
-        if (_wallet != null && enabled)
-            OnEnable();
+        if (_wallet != null)
+        {
+            _wallet.CoinAdded += OnCoinAdded;
+            _wallet.CoinSpent += OnCoinSpent;
+        }
     }
 
     private void OnCoinAdded(int delta, int totalScore)
@@ -71,7 +73,15 @@ public class ScoreView : MonoBehaviour
 
     private void OnScoreChanged(int delta, int totalScore)
     {
-        StartCoroutine(ScoreViewChangeCoroutine(delta, totalScore));
+        if (enabled && gameObject.activeInHierarchy && gameObject.activeSelf)
+        {
+            StartCoroutine(ScoreViewChangeCoroutine(delta, totalScore));
+        }
+        else
+        {
+            _score = totalScore;
+            UpdateScore();
+        }
     }
 
     private IEnumerator ScoreViewChangeCoroutine(int delta, int totalScore)
@@ -91,7 +101,7 @@ public class ScoreView : MonoBehaviour
                 UpdateScore();
             }
 
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
 
         int lastAdd = totalScore - prevScore;

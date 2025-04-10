@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas _gameCanvas;
     [SerializeField] private CanvasGroup _gameUI;
     [SerializeField] private CanvasGroup _pauseMenu;
-
+    [SerializeField] private CanvasGroup _gameOverUI;
+    [SerializeField] private CanvasGroup _endLevelUI;
     [Header("MainMenu")]
     [SerializeField] private MainMenu _mainMenu;
 
@@ -31,8 +32,9 @@ public class GameManager : MonoBehaviour
     public YandexGame YG => _ygSingleton;
 
     private Wallet _inRunWallet;
-
     public Wallet CurrentRunWallet => _inRunWallet;
+
+    private CanvasGroup _raisedUI;
 
     private void Start()
     {
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartLevel()
     {
         _pauseMenu.gameObject.SetActive(false);
+        _gameOverUI.gameObject.SetActive(false);
+        _endLevelUI.gameObject.SetActive(false);
         _gameUI.gameObject.SetActive(true);
         _levelGenerator.StartLevel();
         _inRunWallet = new Wallet(0);
@@ -59,7 +63,7 @@ public class GameManager : MonoBehaviour
         playerCamera.enabled = true;
         //disable mainmenu camera
         _playerCharacter.Died += OnPlayerDied;
-        _levelGenerator.EndLevelTrigger.InteractEvent += OnEndLevelTriggered;
+        _levelGenerator.EndLevelTrigger.InteractEvent.AddListener(OnEndLevelTriggered);
         _playerCharacter.GetComponent<WeaponArsenal>().Equip(_playerInventory.EquippedWeapon.config,
             _playerInventory.EquippedWeapon.level);
         GameStarted?.Invoke();
@@ -95,14 +99,12 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelEndedSuccessful()
     {
-        YandexGame.savesData.coins += _inRunWallet.Coins;
-        YandexGame.SaveProgress();
-        BackToMainMenu();
+        Pause(_endLevelUI);
     }
 
     public void OnGameOver()
     {
-        BackToMainMenu();
+        Pause(_gameOverUI);
     }
 
     public void OnPauseButtonClicked()
@@ -113,7 +115,7 @@ public class GameManager : MonoBehaviour
         } 
         else
         {
-            Pause();
+            Pause(_pauseMenu);
         }
 
     }
@@ -141,15 +143,22 @@ public class GameManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        if (_inRunWallet != null)
+        {
+            _playerInventory.Wallet.Add(_inRunWallet.Coins);
+            YandexGame.SaveProgress();
+            _playerInventory.OnInventoryChanged?.Invoke();
+        }
         YandexGame.FullscreenShow();
         Unpause();
         ClearLevel();
         _gameCanvas.gameObject.SetActive(false);
         _mainMenu.OpenMenu();
     }
-    private void Pause()
+    private void Pause(CanvasGroup uiToRaise)
     {
-        _pauseMenu.gameObject.SetActive(true);
+        uiToRaise.gameObject.SetActive(true);
+        _raisedUI = uiToRaise;
         _gameUI.gameObject.SetActive(false);
         Time.timeScale = 0;
         _isGamePaused = true;
@@ -158,7 +167,7 @@ public class GameManager : MonoBehaviour
     private void Unpause()
     {
         _isGamePaused = false;
-        _pauseMenu.gameObject.SetActive(false);
+        _raisedUI?.gameObject.SetActive(false);
         _gameUI.gameObject.SetActive(true);
         Time.timeScale = 1;
     }

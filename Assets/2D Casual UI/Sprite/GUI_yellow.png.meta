@@ -345,6 +345,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: GUI_Ad
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 77
+        width: 109
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b36376ffdd1e53442acefe7060c2bcd4
+      internalID: -226823490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_yellow_10
+      rect:
+        serializedVersion: 2
+        x: 2195
+        y: 1605
+        width: 396
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 50, y: 50, z: 50, w: 50}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 400b41b7f6de42646b0aeebfc1d4cbf5
+      internalID: -962777335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -356,8 +398,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      GUI_Ad: -226823490
       GUI_yellow_0: -296222133
       GUI_yellow_1: 977297612
+      GUI_yellow_10: -962777335
       GUI_yellow_2: 725796404
       GUI_yellow_3: 1952814189
       GUI_yellow_4: -869435111

@@ -13,7 +13,7 @@ public class Health : MonoBehaviour, IDamagable
     public event Action<float, float, GameObject> Healed;
     public event Action<GameObject> Died;
 
-    public bool IsDead => _health == 0;
+    public bool IsDead => _health <= 0;
     public float HP => _health;
     public float Percentage => _health / _maxHealth * 100;
     private void Awake()
@@ -24,8 +24,6 @@ public class Health : MonoBehaviour, IDamagable
     public void RegisterDamage(float damage, GameObject causer)
     {
         _health -= damage;
-        if (_health < 0.0f)
-            _health = 0;
 
         Damaged?.Invoke(damage, _health, causer);
         if (IsDead)

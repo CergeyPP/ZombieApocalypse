@@ -215,6 +215,8 @@ public class LevelGenerator : MonoBehaviour
 
             newRoad.GenerateBuildings();
             newRoad.GenerateProps();
+            _chests.AddRange(newRoad.GenerateChests());
+            _medkits.AddRange(newRoad.GenerateMedkits());
         }
 
         TileSample furthest = endPaths.Aggregate((furthest, item) =>
@@ -258,11 +260,11 @@ public class LevelGenerator : MonoBehaviour
 
         foreach (var item in _chests)
         {
-            item.InteractEvent += OnChestPickedUp;
+            item.InteractEvent.AddListener(OnChestPickedUp);
         }
         foreach (var item in _medkits)
         {
-            item.InteractEvent += OnMedkitPickedUp;
+            item.InteractEvent.AddListener(OnMedkitPickedUp);
         }
     }
     private IEnumerable<TileDesc> CompleteTileDescription(TileRequirements requirements)

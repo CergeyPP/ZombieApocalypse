@@ -68,12 +68,9 @@ public class CharacterAnimator : MonoBehaviour
         _hitTrigID = Animator.StringToHash(_hitReactProperty);
         _dieTrigID = Animator.StringToHash(_deathProperty);
         _attackTrigID = Animator.StringToHash(_attackProperty);
-        
+
 
         _attackProvider.AttackStart += OnAttackPerformed;
-        _character.Damaged += OnHitReact;
-        _character.Died += OnDied;
-
     }
 
     protected void OnEnable()

@@ -5,8 +5,10 @@ using UnityEngine;
 public struct WeaponStat
 {
     public float damage;
-    public float fireRate;
+    public float fireInterval;
     public float range;
+
+    public float fireRate => 10.0F / fireInterval;
 }
 
 public class Weapon : MonoBehaviour
@@ -32,7 +34,7 @@ public class Weapon : MonoBehaviour
 
     public void Attack()
     {
-        _timer.StartTime(_stats.fireRate);
+        _timer.StartTime(_stats.fireInterval);
     }
 
     public void DealDamage(IDamagable victim, GameObject causer)

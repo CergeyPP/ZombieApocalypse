@@ -17,9 +17,11 @@ public class WeaponConfiguration : ScriptableObject
     [SerializeField] private WeaponType _type;
     [SerializeField] private AttackConfiguration _attack;
     [SerializeField] private WeaponFX _effect;
+    [SerializeField] private AudioClip _weaponSFX;
     [Header("Build")]
     [SerializeField] private float _damageIncreaseByLevel = 1;
     [SerializeField] private int _maxLevel = 10;
+    [SerializeField] private int _buyPrice = 100;
     [SerializeField] private int _startUpgradePrice;
     [SerializeField] private int _upgradePriceIncrease;
     [Header("View")]
@@ -29,6 +31,7 @@ public class WeaponConfiguration : ScriptableObject
 
     public WeaponType Type => _type;
     public AttackConfiguration AttackInfo => _attack;
+    public AudioClip WeaponSFX => _weaponSFX;
     public Sprite IconUI => _uiIcon;
 
     private ObjectPool<WeaponFX> _trailPool;
@@ -38,7 +41,7 @@ public class WeaponConfiguration : ScriptableObject
         WeaponStat stats = new WeaponStat();
         stats.damage = _attack.Damage + (level - 1) * _damageIncreaseByLevel;
         stats.range = _attack.Range;
-        stats.fireRate = _attack.FireRate;
+        stats.fireInterval = _attack.AttackInterval;
         return stats;
     }
     public Weapon CreateWeapon(int level)
@@ -49,6 +52,8 @@ public class WeaponConfiguration : ScriptableObject
         return weapon;
     }
 
+    public int BuyPrice => _buyPrice;
+    public int MaxLevel => _maxLevel;
     public int GetUpgradePrice(int currentLevel)
     {
         return _startUpgradePrice + (currentLevel - 1) * _upgradePriceIncrease;

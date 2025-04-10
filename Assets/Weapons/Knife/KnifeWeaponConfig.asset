@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7211f0b368d855d4eb27ffdebef83853, type: 3}
+  m_Name: KnifeWeaponConfig
+  m_EditorClassIdentifier: 
+  _type: 0
+  _attack: {fileID: 11400000, guid: c0b7e589d882051488ad6843c1f1d26c, type: 2}
+  _effect: {fileID: 5234327507424209064, guid: 5f57e2f0b2e01e143bf74226e6581133, type: 3}
+  _weaponSFX: {fileID: 8300000, guid: e4d6f266194cfe04c91ec71535dc170d, type: 3}
+  _damageIncreaseByLevel: 2
+  _maxLevel: 10
+  _buyPrice: 0
+  _startUpgradePrice: 30
+  _upgradePriceIncrease: 30
+  _weaponPrefab: {fileID: 8032448423517439710, guid: a12ec29d0fef17e468fa1897e7e04812,
+    type: 3}
+  _uiIcon: {fileID: 21300000, guid: e6b7dec11c113664f8765308aca630d3, type: 3}

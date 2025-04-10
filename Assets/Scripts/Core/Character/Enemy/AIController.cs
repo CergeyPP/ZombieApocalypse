@@ -84,7 +84,7 @@ public class AIController : MonoBehaviour, IAttackProvider, IMovementProvider
     public void StartAttack()
     {
         AttackStart?.Invoke();
-        _attackTimer.StartTime(_attackConfig.FireRate);
+        _attackTimer.StartTime(_attackConfig.AttackInterval);
     }
 
     public void OnAttackEventTriggered()

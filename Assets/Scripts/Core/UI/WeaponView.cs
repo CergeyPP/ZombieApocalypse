@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,16 +10,31 @@ public class WeaponView : MonoBehaviour
     [SerializeField] private WeaponConfiguration _weaponConfig;
     [SerializeField] private int _weaponLevel;
     [SerializeField] private Image _imageForIcon;
-    [SerializeField] private TextMeshPro _damageField;
-    [SerializeField] private TextMeshPro _rangeField;
-    [SerializeField] private TextMeshPro _firerateField;
+    [SerializeField] private TMP_Text _damageField;
+    [SerializeField] private TMP_Text _rangeField;
+    [SerializeField] private TMP_Text _firerateField;
 
     public WeaponConfiguration Weapon => _weaponConfig;
     public int WeaponLevel => _weaponLevel;
 
-    public void Awake()
+    private Inventory _inventory;
+    public Inventory Inventory => _inventory;
+    public Action OnWeaponViewUpdated;
+
+    private void Awake()
     {
         SetWeaponSettings(_weaponConfig, _weaponLevel);
+        _inventory = FindAnyObjectByType<Inventory>();
+        _inventory.OnWeaponPurchased += OnWeaponActionPerformed;
+        _inventory.OnWeaponLeveledUp += OnWeaponActionPerformed;
+        _inventory.OnInventoryChanged += RecalculateView;
+    }
+
+    private void OnDestroy()
+    {
+        _inventory.OnWeaponPurchased -= OnWeaponActionPerformed;
+        _inventory.OnWeaponLeveledUp -= OnWeaponActionPerformed;
+        _inventory.OnInventoryChanged -= RecalculateView;
     }
 
     public void SetWeaponSettings(WeaponConfiguration weaponConfig, int weaponLevel)
@@ -28,6 +44,15 @@ public class WeaponView : MonoBehaviour
         if (_weaponConfig != null)
         {
             _imageForIcon.sprite = _weaponConfig.IconUI;
+            RecalculateView();
+        }
+    }
+
+    public void OnWeaponActionPerformed(WeaponDesc weaponDesc)
+    {
+        if (weaponDesc.config == _weaponConfig)
+        {
+            _weaponLevel = weaponDesc.level;
             RecalculateView();
         }
     }
@@ -47,5 +72,6 @@ public class WeaponView : MonoBehaviour
         {
             _firerateField.text = stats.fireRate.ToString();
         }
+        OnWeaponViewUpdated?.Invoke();
     }
 }

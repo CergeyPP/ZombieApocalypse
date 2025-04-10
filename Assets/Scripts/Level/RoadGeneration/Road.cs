@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Road : MonoBehaviour
@@ -54,11 +55,17 @@ public class Road : MonoBehaviour
 
     public IEnumerable<Interactable> GenerateMedkits()
     {
-        return _props.InstantiateMedkits();
+        if (_props != null)
+            return _props.InstantiateMedkits();
+        else
+            return Enumerable.Empty<Interactable>();
     }
     public IEnumerable<Interactable> GenerateChests()
     {
-        return _props.InstantiateChests();
+        if (_props != null)
+            return _props.InstantiateChests();
+        else
+            return Enumerable.Empty<Interactable>();
     }
     public Interactable EndLevelTrigger => _props.EndLevelTrigger;
 

@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class Interactable : MonoBehaviour
 {
-    public event Action<Interactable, GameObject> InteractEvent;
+    public UnityEvent<Interactable, GameObject> InteractEvent;
     private void OnTriggerEnter(Collider other)
     {
         InteractEvent?.Invoke(this, other.gameObject);

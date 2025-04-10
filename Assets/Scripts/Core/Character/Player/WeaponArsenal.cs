@@ -14,6 +14,7 @@ public class WeaponArsenal : MonoBehaviour, IAttackProvider
     [SerializeField] private LayerMask _enemyLayer;
 
     private Weapon _equippedWeapon;
+    public Weapon EquippedWeapon => _equippedWeapon;
 
     private bool _wantToShoot;
     private bool IsColliderOnEnemyLayer(Collider collider)

@@ -24,10 +24,14 @@ namespace YG
         public int coins;
         public List<WeaponSave> purchasedWeapons = new List<WeaponSave>();
         public int equippedWeaponID;
+        public float masterVolume;
+        public float musicVolume;
         public SavesYG()
         {
             coins = 0;
             equippedWeaponID = 0;
+            masterVolume = 100;
+            musicVolume = 100;
         }
     }
 }

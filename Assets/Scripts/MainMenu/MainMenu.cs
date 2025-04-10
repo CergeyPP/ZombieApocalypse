@@ -6,19 +6,17 @@ using YG;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private Inventory _inventory;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private MainMenuDecorViewer _mainMenuDecor;
     [SerializeField] private Canvas _mainMenuCanvas;
 
     public Action Opened;
     public Action Closed;
-    public Wallet CoinWallet => _wallet;
-
-    private Wallet _wallet = new Wallet(0);
+    public Wallet CoinWallet => _inventory.Wallet;
 
     public void OpenMenu()
     {
-        _wallet = new Wallet(YandexGame.savesData.coins);
         _mainMenuCanvas.enabled = true;
         gameObject.SetActive(true);
         _mainMenuDecor.Show();

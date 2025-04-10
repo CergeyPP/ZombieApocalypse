@@ -9,7 +9,7 @@ public class Medkit : MonoBehaviour
 
     private void Start()
     {
-        _interactor.InteractEvent += OnInteract;
+        _interactor.InteractEvent.AddListener(OnInteract);
     }
 
     private void OnInteract(Interactable trigger, GameObject gameObject)

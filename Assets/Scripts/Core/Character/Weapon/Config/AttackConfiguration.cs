@@ -7,9 +7,10 @@ public class AttackConfiguration : ScriptableObject
 {
     [SerializeField] private float _damage;
     [SerializeField] private float _range;
-    [SerializeField] private float _fireRate;
+    [SerializeField] private float _attackInterval;
 
     public float Damage => _damage;
     public float Range => _range;
-    public float FireRate => _fireRate;
+    public float AttackInterval => _attackInterval;
+
 }
