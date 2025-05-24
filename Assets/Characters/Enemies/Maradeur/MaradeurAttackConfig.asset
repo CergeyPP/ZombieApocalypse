@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dcc9d230c0af547a3b737b43886141, type: 3}
   m_Name: MaradeurAttackConfig
   m_EditorClassIdentifier: 
-  _damage: 0.4
-  _range: 5
-  _attackInterval: 0.3
+  _damage: 2
+  _range: 3
+  _attackInterval: 0.7

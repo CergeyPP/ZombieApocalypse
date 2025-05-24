@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6e3661fb6fb854ea33157a5ad8119c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _destroyTime: 1
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactor: {fileID: 1659782387658005304}
-  _healthRestoreAmount: 5
+  _healthRestoreAmount: 12
 --- !u!114 &-1506030877322166687
 MonoBehaviour:
   m_ObjectHideFlags: 0

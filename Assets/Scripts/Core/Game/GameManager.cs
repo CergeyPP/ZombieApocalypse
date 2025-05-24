@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour
     public void OnLevelEndedSuccessful()
     {
         YandexGame.savesData.isTutorCompleted = true;
-        YandexGame.SaveProgress();
         Pause(_endLevelUI);
     }
 
@@ -149,10 +148,10 @@ public class GameManager : MonoBehaviour
         if (_inRunWallet != null)
         {
             _playerInventory.Wallet.Add(_inRunWallet.Coins);
+            YandexGame.savesData.coins = _playerInventory.Wallet.Coins;
             YandexGame.SaveProgress();
             _playerInventory.OnInventoryChanged?.Invoke();
         }
-        YandexGame.FullscreenShow();
         Unpause();
         ClearLevel();
         _gameCanvas.gameObject.SetActive(false);

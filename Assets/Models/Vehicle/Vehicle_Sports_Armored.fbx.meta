@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Atlas
-    second: {fileID: 2100000, guid: 573211333a3b559499be1faf7579f666, type: 2}
+    second: {fileID: 2100000, guid: a2d336bf0e7a1054ebb14e8fe937c23f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -18,7 +18,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Headlights
-    second: {fileID: 2100000, guid: 573211333a3b559499be1faf7579f666, type: 2}
+    second: {fileID: 2100000, guid: 4b5b7facae4a0074680401a6133796ce, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

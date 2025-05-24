@@ -16,11 +16,11 @@ MonoBehaviour:
   _attack: {fileID: 11400000, guid: 4dc72aa997494cf4fa0d9823c81125c4, type: 2}
   _effect: {fileID: 825083455609423758, guid: 4d8addef180c3644192e2f9f8779b3e8, type: 3}
   _weaponSFX: {fileID: 8300000, guid: e3a6f9e1c30a83f49b72fa68b59f0014, type: 3}
-  _damageIncreaseByLevel: 1
+  _damageIncreaseByLevel: 0.5
   _maxLevel: 10
-  _buyPrice: 1000
-  _startUpgradePrice: 750
-  _upgradePriceIncrease: 250
+  _buyPrice: 1200
+  _startUpgradePrice: 130
+  _upgradePriceIncrease: 130
   _weaponPrefab: {fileID: 4964527917730399967, guid: 4ccf8eb2395131a4c9578f2dd47286f3,
     type: 3}
   _uiIcon: {fileID: 21300000, guid: c7b953603ec714c49bc39db4d9cc7528, type: 3}

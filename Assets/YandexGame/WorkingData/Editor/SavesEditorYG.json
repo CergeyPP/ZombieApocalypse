@@ -1,9 +1,9 @@
 {
-  "idSave": 54,
+  "idSave": 5,
   "isFirstSession": false,
   "language": "en",
   "promptDone": false,
-  "coins": 260,
+  "coins": 700,
   "purchasedWeapons": [
     {
       "id": 0,
@@ -11,15 +11,11 @@
     },
     {
       "id": 1,
-      "level": 6
-    },
-    {
-      "id": 2,
-      "level": 6
+      "level": 2
     }
   ],
-  "equippedWeaponID": 2,
-  "masterVolume": 43.38351,
-  "musicVolume": 40.30341,
+  "equippedWeaponID": 1,
+  "masterVolume": 100.0,
+  "musicVolume": 100.0,
   "isTutorCompleted": true
 }

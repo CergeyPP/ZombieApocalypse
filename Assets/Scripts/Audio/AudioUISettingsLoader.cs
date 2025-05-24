@@ -12,6 +12,6 @@ public class AudioUISettingsLoader : MonoBehaviour
     private void Start()
     {
         _masterSlider.value = YandexGame.savesData.masterVolume;
-        _musicSlider.value = YandexGame.savesData.musicVolume;
+        //_musicSlider.value = YandexGame.savesData.musicVolume;
     }
 }

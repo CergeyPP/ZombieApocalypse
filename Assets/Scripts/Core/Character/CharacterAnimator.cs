@@ -124,7 +124,8 @@ public class CharacterAnimator : MonoBehaviour
         _animator.SetFloat(_speedPropID, 0);
         _animator.SetTrigger(_dieTrigID);
         enabled = false;
-        _deathParticle?.Emit(_character.ScoreReward);
+        if (_deathParticle)
+            _deathParticle?.Emit(_character.ScoreReward);
     }
 
     protected void OnAttackPerformed()
